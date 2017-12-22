@@ -10,4 +10,4 @@ jobs:
       - run:
           name: Connect with SSH
           command: |
-            ssh -p ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST} ${SSH_COMMAND} -v
+            ssh -p ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST} ${SSH_COMMAND} ${SSH_COMMAND_OPTIONS}
