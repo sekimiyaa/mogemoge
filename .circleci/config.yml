@@ -10,4 +10,9 @@ jobs:
       - run:
           name: Transfer file on SSH connection
           command: |
-            scp -p -P ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST}:${REPORT_FILE} ~
+            mkdir ~/junit
+            scp -p -P ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST}:${REPORT_FILE} ~/
+      - store_test_results:
+          path: ~/junit
+      - store_artifacts:
+          path: ~/junit
