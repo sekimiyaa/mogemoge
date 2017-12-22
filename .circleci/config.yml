@@ -12,5 +12,7 @@ jobs:
           command: |
             mkdir ~/junit
             scp -p -P ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST}:${REPORT_FILE} ~/junit
+      - store_test_results:
+          path: ~/junit
       - store_artifacts:
           path: ~/junit
