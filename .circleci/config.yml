@@ -10,12 +10,12 @@ jobs:
       - run:
           name: CLI scan on SSH connection
           command: |
-            ssh -p ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST} ${SSH_COMMAND} (${SSH_COMMAND_OPTIONS})
+            ssh -p ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST} ${SSH_COMMAND} ${SSH_COMMAND_OPTIONS}
       - run:
           name: Transfer file on SSH connection
           command: |
             mkdir ~/junit
-            scp -p -P ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST}:(${REPORT_FILE}) ~/junit
+            scp -p -P ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST}:${REPORT_FILE} ~/junit
       - store_test_results:
           path: ~/junit
       - store_artifacts:
