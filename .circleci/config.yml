@@ -4,7 +4,19 @@ jobs:
     machine:
       enabled: true
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - ${SSH_FINGERPRINTS}
       - run:
           name: CLI scan on SSH connection
           command: |
-            echo ${ECHO}
+            ssh -p ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST} ${SSH_COMMAND} ${SSH_COMMAND_OPTIONS1} ${CIRCLE_BUILD_NUM} --out ${REPORT_FILE}_${CIRCLE_BUILD_NUM}.xml
+      - run:
+          name: Transfer file on SSH connection
+          command: |
+            mkdir ~/junit
+            scp -p -P ${SSH_PORT} ${SSH_USERNAME}@${SSH_HOST}:${REPORT_FILE}_${CIRCLE_BUILD_NUM}.xml ~/junit
+      - store_test_results:
+          path: ~/junit
+      - store_artifacts:
+          path: ~/junit
